@@ -4,16 +4,23 @@
 
 ## Что важно
 
+- Настройки подключения к MySQL задаются в `settings.txt` (в корне проекта).
 - При первом запуске Python-приложения база создается автоматически: `tumar_market`.
 - Также автоматически создаются таблицы и демо-данные (если база пустая).
-- Параметры MySQL сейчас заданы в коде (`python/storage.py`):
-  - host: `127.0.0.1`
-  - port: `3306`
-  - user: `root`
-  - password: `root`
+
+Пример `settings.txt`:
+
+```txt
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=root
+DB_NAME=tumar_market
+```
 
 ## Структура
 
+- `settings.txt` — настройки подключения к MySQL.
 - `html/market.html` — страница витрины.
 - `html/seller.html` — страница кабинета продавца.
 - `css/market.css` — стили витрины.

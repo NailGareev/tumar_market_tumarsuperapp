@@ -1,15 +1,59 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 import pymysql
 from pymysql.cursors import DictCursor
 
-DB_HOST = "127.0.0.1"
-DB_PORT = 3306
-DB_USER = "root"
-DB_PASSWORD = "root"
-DB_NAME = "tumar_market"
+DEFAULT_SETTINGS = {
+    "DB_HOST": "127.0.0.1",
+    "DB_PORT": "3306",
+    "DB_USER": "root",
+    "DB_PASSWORD": "root",
+    "DB_NAME": "tumar_market",
+}
+
+SETTINGS_FILE = Path(__file__).resolve().parent.parent / "settings.txt"
+
+
+def _load_settings() -> dict[str, str]:
+    values = DEFAULT_SETTINGS.copy()
+
+    if not SETTINGS_FILE.exists():
+        SETTINGS_FILE.write_text(
+            "\n".join([
+                "# MySQL settings",
+                "DB_HOST=127.0.0.1",
+                "DB_PORT=3306",
+                "DB_USER=root",
+                "DB_PASSWORD=root",
+                "DB_NAME=tumar_market",
+                "",
+            ]),
+            encoding="utf-8",
+        )
+        return values
+
+    for line in SETTINGS_FILE.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip()
+        if key in values and value:
+            values[key] = value
+
+    return values
+
+
+SETTINGS = _load_settings()
+DB_HOST = SETTINGS["DB_HOST"]
+DB_PORT = int(SETTINGS["DB_PORT"])
+DB_USER = SETTINGS["DB_USER"]
+DB_PASSWORD = SETTINGS["DB_PASSWORD"]
+DB_NAME = SETTINGS["DB_NAME"]
 
 
 def _server_connect() -> pymysql.connections.Connection:
