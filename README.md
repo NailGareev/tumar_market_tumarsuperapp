@@ -1,6 +1,11 @@
 # Tumar SuperApp Market (Kaspi-like MVP)
 
-Обновленная структура проекта по вашему запросу: отдельные файлы по страницам в папках `html`, `css`, `python`, `go`.
+Проект хранит **все данные в SQLite базе**: товары, аккаунты продавцов, магазины и офферы.
+
+## Что важно
+
+- При первом запуске Python-приложения база создается автоматически: `python/data/market.db`.
+- Также автоматически создаются таблицы и демо-данные (если база пустая).
 
 ## Структура
 
@@ -8,11 +13,10 @@
 - `html/seller.html` — страница кабинета продавца.
 - `css/market.css` — стили витрины.
 - `css/seller.css` — стили кабинета.
-- `python/app.py` — Flask-приложение, маршрутизация страниц и статических файлов.
+- `python/app.py` — Flask-приложение и инициализация БД на старте.
 - `python/market.py` — API витрины/карточки товара.
 - `python/seller.py` — API кабинета продавца.
-- `python/storage.py` — работа с JSON-хранилищем.
-- `python/data/store.json` — данные демо-магазина.
+- `python/storage.py` — слой SQLite (создание БД, CRUD, сидирование).
 - `go/main.go` — Go-сервис ранжирования.
 - `go/market_rank.go` — ранжирование офферов для витрины.
 - `go/seller_rank.go` — ранжирование офферов в кабинете продавца.
@@ -47,5 +51,6 @@ python app.py
 - `GET /api/market/products`
 - `GET /api/market/products/<product_id>`
 - `POST /api/seller/register`
+- `GET /api/seller/list`
 - `GET /api/seller/<seller_id>/offers`
 - `POST /api/seller/<seller_id>/offers`

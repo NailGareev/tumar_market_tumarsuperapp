@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
 python/.venv/
+python/data/market.db
 go/go_ranking
 .DS_Store

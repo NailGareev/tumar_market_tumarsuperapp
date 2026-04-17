@@ -6,6 +6,7 @@ from flask import Flask, send_from_directory
 
 from market import market_bp
 from seller import seller_bp
+from storage import init_db
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 HTML_DIR = ROOT_DIR / "html"
@@ -13,6 +14,7 @@ CSS_DIR = ROOT_DIR / "css"
 JS_DIR = ROOT_DIR / "js"
 
 app = Flask(__name__)
+init_db()
 app.register_blueprint(market_bp)
 app.register_blueprint(seller_bp)
 
