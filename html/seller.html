@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tumar Market — Кабинет продавца</title>
+    <link rel="stylesheet" href="/css/seller.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">Tumar <span>Market</span></div>
+      <nav><a class="tab" href="/market">Маркет</a><a class="tab active" href="/seller">Кабинет продавца</a></nav>
+    </header>
+
+    <main>
+      <h1>Личный кабинет продавца</h1>
+      <section class="card">
+        <h2>Регистрация продавца</h2>
+        <div class="row">
+          <input id="seller-name" placeholder="Название магазина" />
+          <input id="seller-city" placeholder="Город" />
+          <button id="register-seller">Создать</button>
+        </div>
+        <p id="register-result" class="muted"></p>
+      </section>
+
+      <section class="card">
+        <h2>Управление офферами</h2>
+        <div class="row">
+          <select id="seller-select"></select>
+          <select id="product-select"></select>
+        </div>
+        <div class="row">
+          <input id="offer-price" type="number" placeholder="Цена, ₸" />
+          <input id="offer-stock" type="number" placeholder="Остаток" />
+          <input id="offer-delivery" type="number" placeholder="Доставка, дни" />
+          <input id="offer-warranty" type="number" placeholder="Гарантия, мес" />
+          <button id="save-offer">Сохранить</button>
+        </div>
+        <h3>Мои офферы</h3>
+        <div id="seller-offers"></div>
+      </section>
+    </main>
+
+    <script src="/js/seller.js"></script>
+  </body>
+</html>
