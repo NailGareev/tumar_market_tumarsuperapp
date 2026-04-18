@@ -96,58 +96,58 @@ def init_db() -> None:
         with _db_connect() as conn:
             with conn.cursor() as cursor:
                 cursor.execute(
-                """
-                CREATE TABLE IF NOT EXISTS accounts (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    login VARCHAR(120) NOT NULL UNIQUE,
-                    role VARCHAR(50) NOT NULL DEFAULT 'seller',
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                """
-            )
-            cursor.execute(
-                """
-                CREATE TABLE IF NOT EXISTS shops (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    account_id INT NOT NULL,
-                    name VARCHAR(255) NOT NULL,
-                    city VARCHAR(120) NOT NULL,
-                    rating DECIMAL(3,2) NOT NULL DEFAULT 5.00,
-                    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    CONSTRAINT fk_shops_account FOREIGN KEY (account_id) REFERENCES accounts(id)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                """
-            )
-            cursor.execute(
-                """
-                CREATE TABLE IF NOT EXISTS products (
-                    id INT AUTO_INCREMENT PRIMARY KEY,
-                    title VARCHAR(255) NOT NULL,
-                    category VARCHAR(120) NOT NULL,
-                    description TEXT NOT NULL,
-                    image TEXT NOT NULL
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                """
-            )
-            cursor.execute(
-                """
-                CREATE TABLE IF NOT EXISTS offers (
-                    product_id INT NOT NULL,
-                    shop_id INT NOT NULL,
-                    price INT NOT NULL,
-                    stock INT NOT NULL,
-                    delivery_days INT NOT NULL,
-                    warranty_months INT NOT NULL,
-                    PRIMARY KEY (product_id, shop_id),
-                    CONSTRAINT fk_offers_product FOREIGN KEY (product_id) REFERENCES products(id),
-                    CONSTRAINT fk_offers_shop FOREIGN KEY (shop_id) REFERENCES shops(id)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-                """
-            )
+                    """
+                    CREATE TABLE IF NOT EXISTS accounts (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        login VARCHAR(120) NOT NULL UNIQUE,
+                        role VARCHAR(50) NOT NULL DEFAULT 'seller',
+                        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+                    """
+                )
+                cursor.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS shops (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        account_id INT NOT NULL,
+                        name VARCHAR(255) NOT NULL,
+                        city VARCHAR(120) NOT NULL,
+                        rating DECIMAL(3,2) NOT NULL DEFAULT 5.00,
+                        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        CONSTRAINT fk_shops_account FOREIGN KEY (account_id) REFERENCES accounts(id)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+                    """
+                )
+                cursor.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS products (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        title VARCHAR(255) NOT NULL,
+                        category VARCHAR(120) NOT NULL,
+                        description TEXT NOT NULL,
+                        image TEXT NOT NULL
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+                    """
+                )
+                cursor.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS offers (
+                        product_id INT NOT NULL,
+                        shop_id INT NOT NULL,
+                        price INT NOT NULL,
+                        stock INT NOT NULL,
+                        delivery_days INT NOT NULL,
+                        warranty_months INT NOT NULL,
+                        PRIMARY KEY (product_id, shop_id),
+                        CONSTRAINT fk_offers_product FOREIGN KEY (product_id) REFERENCES products(id),
+                        CONSTRAINT fk_offers_shop FOREIGN KEY (shop_id) REFERENCES shops(id)
+                    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+                    """
+                )
 
-            cursor.execute("SELECT COUNT(*) AS count FROM products")
-            if cursor.fetchone()["count"] == 0:
-                _seed_db(cursor)
+                cursor.execute("SELECT COUNT(*) AS count FROM products")
+                if cursor.fetchone()["count"] == 0:
+                    _seed_db(cursor)
     except OperationalError as error:
         raise RuntimeError(
             f"MySQL connection failed: {error}. Check settings in {SETTINGS_FILE}."
