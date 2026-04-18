@@ -14,9 +14,11 @@
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=root
+DB_PASSWORD=
 DB_NAME=tumar_market
 ```
+
+Если видите ошибку `Access denied`, проверьте `DB_USER` и `DB_PASSWORD` в `settings.txt`.
 
 ## Структура
 

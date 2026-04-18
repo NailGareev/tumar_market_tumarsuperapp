@@ -5,12 +5,13 @@ from typing import Any
 
 import pymysql
 from pymysql.cursors import DictCursor
+from pymysql.err import OperationalError
 
 DEFAULT_SETTINGS = {
     "DB_HOST": "127.0.0.1",
     "DB_PORT": "3306",
     "DB_USER": "root",
-    "DB_PASSWORD": "root",
+    "DB_PASSWORD": "",
     "DB_NAME": "tumar_market",
 }
 
@@ -27,7 +28,7 @@ def _load_settings() -> dict[str, str]:
                 "DB_HOST=127.0.0.1",
                 "DB_PORT=3306",
                 "DB_USER=root",
-                "DB_PASSWORD=root",
+                "DB_PASSWORD=",
                 "DB_NAME=tumar_market",
                 "",
             ]),
@@ -42,7 +43,9 @@ def _load_settings() -> dict[str, str]:
         key, value = line.split("=", 1)
         key = key.strip()
         value = value.strip()
-        if key in values and value:
+        if key in values:
+            if key != "DB_PASSWORD" and value == "":
+                continue
             values[key] = value
 
     return values
@@ -82,16 +85,17 @@ def _db_connect() -> pymysql.connections.Connection:
 
 
 def init_db() -> None:
-    with _server_connect() as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(
-                f"CREATE DATABASE IF NOT EXISTS {DB_NAME} "
-                "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-            )
+    try:
+        with _server_connect() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    f"CREATE DATABASE IF NOT EXISTS {DB_NAME} "
+                    "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+                )
 
-    with _db_connect() as conn:
-        with conn.cursor() as cursor:
-            cursor.execute(
+        with _db_connect() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
                 """
                 CREATE TABLE IF NOT EXISTS accounts (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -144,6 +148,10 @@ def init_db() -> None:
             cursor.execute("SELECT COUNT(*) AS count FROM products")
             if cursor.fetchone()["count"] == 0:
                 _seed_db(cursor)
+    except OperationalError as error:
+        raise RuntimeError(
+            f"MySQL connection failed: {error}. Check settings in {SETTINGS_FILE}."
+        ) from error
 
 
 def _seed_db(cursor: DictCursor) -> None:
