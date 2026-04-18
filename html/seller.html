@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tumar Market — Кабинет продавца</title>
+    <link rel="stylesheet" href="/css/seller.css" />
+  </head>
+  <body>
+    <header class="seller-topbar">
+      <div class="seller-logo">Кабинет продавца</div>
+      <nav>
+        <a href="#">Kaspi Гид</a>
+        <a href="#">Связаться с нами</a>
+        <a href="#">ID - 30384721</a>
+        <a href="/market">В магазин</a>
+      </nav>
+    </header>
+
+    <div class="seller-layout">
+      <aside class="sidebar">
+        <div class="sidebar-group-title">ТОВАРЫ</div>
+        <button class="side-link active" data-page="products">Управление товарами</button>
+        <button class="side-link" data-page="add">Добавить товар</button>
+        <button class="side-link" data-page="quality">Показатели качества</button>
+
+        <div class="sidebar-group-title">ПРОДАВЕЦ</div>
+        <div class="register-box">
+          <h4>Регистрация магазина</h4>
+          <input id="seller-name" placeholder="Название магазина" />
+          <input id="seller-city" placeholder="Город" />
+          <button id="register-seller">Создать продавца</button>
+          <p id="register-result" class="muted"></p>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section id="page-products" class="page active">
+          <div class="title-row">
+            <h1>Управление товарами</h1>
+            <button class="primary" data-open-add>Добавить товар</button>
+          </div>
+
+          <div class="filters">
+            <select id="seller-select"></select>
+            <input id="search-offer" placeholder="Поиск по товару" />
+          </div>
+
+          <div class="offer-form">
+            <select id="product-select"></select>
+            <input id="offer-price" type="number" placeholder="Цена, ₸" />
+            <input id="offer-stock" type="number" placeholder="Остаток" />
+            <input id="offer-delivery" type="number" placeholder="Доставка, дни" />
+            <input id="offer-warranty" type="number" placeholder="Гарантия, мес" />
+            <button id="save-offer" class="primary">Сохранить</button>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Товар</th>
+                  <th>Цена</th>
+                  <th>Наличие в магазинах</th>
+                  <th>Остаток</th>
+                </tr>
+              </thead>
+              <tbody id="seller-offers"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="page-add" class="page">
+          <h1>Добавление товара</h1>
+          <div class="step">Шаг 1 из 4</div>
+          <div class="wizard-card">
+            <h3>Присоединиться к существующей карточке товара</h3>
+            <input placeholder="Поиск по названию или артикулу" />
+          </div>
+          <div class="wizard-card">
+            <h3>Добавить новую карточку товара</h3>
+            <p>если товара еще нет в Магазине</p>
+          </div>
+          <div class="wizard-card">
+            <h3>Добавьте товары с помощью шаблона</h3>
+            <p>чтобы создать несколько товаров одновременно</p>
+          </div>
+          <button class="ghost" data-open-products>Назад к товарам</button>
+        </section>
+
+        <section id="page-quality" class="page">
+          <h1>Показатели качества</h1>
+          <div class="quality-alert">
+            <b>Нормально</b>
+            <p>Ваши показатели ухудшаются. Следуйте рекомендациям, чтобы избежать ограничений.</p>
+          </div>
+          <div class="metrics-grid">
+            <article class="metric-card"><h3>Рейтинг</h3><div class="metric">4.9 ★</div><p>На основе оценок за последние 30 дней</p></article>
+            <article class="metric-card"><h3>Задержки при передачах</h3><div class="metric">1%</div><p>1 задержка из 104 заказов</p></article>
+            <article class="metric-card"><h3>Возвраты по качеству</h3><div class="metric">0%</div><p>0 возвратов из 97 заказов</p></article>
+            <article class="metric-card"><h3>Отмены по вашей вине</h3><div class="metric">2.7%</div><p>5 отмен из 183 заказов</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/js/seller.js"></script>
+  </body>
+</html>

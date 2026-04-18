@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tumar Market — Главная</title>
+    <link rel="stylesheet" href="/css/market.css" />
+  </head>
+  <body>
+    <header class="top-header">
+      <div class="container top-header-row">
+        <div class="logo">Tumar<span>.kz</span></div>
+        <nav class="main-links">
+          <a href="/market" class="active">Магазин</a>
+          <a href="#">Клиентам</a>
+          <a href="#">Бизнесу</a>
+          <a href="#">Гид</a>
+        </nav>
+        <a class="seller-link" href="/seller">Кабинет продавца</a>
+      </div>
+    </header>
+
+    <section class="search-strip">
+      <div class="container search-row">
+        <button class="shop-pill">Магазин</button>
+        <input type="text" placeholder="Поиск товара" />
+        <button class="search-btn">🔍</button>
+        <div class="city">Мой город: <b>Алматы</b></div>
+      </div>
+      <div class="container categories-tabs">
+        <a href="#">ВСЕ КАТЕГОРИИ</a>
+        <a href="#">ТЕЛЕФОНЫ И ГАДЖЕТЫ</a>
+        <a href="#">БЫТОВАЯ ТЕХНИКА</a>
+        <a href="#">ТВ, АУДИО, ВИДЕО</a>
+        <a href="#">КОМПЬЮТЕРЫ</a>
+        <a href="#">ТОВАРЫ ДЛЯ ДОМА</a>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="container hero-content">
+        <div>
+          <h1>Мобильное приложение Tumar.kz</h1>
+          <p>Делать покупки еще проще и выгоднее!</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800" alt="phone" />
+        <ul>
+          <li>Добавляйте товары в корзину и покупайте сразу несколько</li>
+          <li>Оплачивайте покупки в приложении</li>
+          <li>Бесплатная доставка при сумме заказа от 5000 ₸</li>
+        </ul>
+      </div>
+    </section>
+
+    <main class="container">
+      <section class="category-grid" id="category-grid"></section>
+
+      <section class="products-section">
+        <h2>Предложения маркетплейса</h2>
+        <div id="products-grid" class="products-grid"></div>
+      </section>
+
+      <section id="detail" class="detail hidden"></section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-columns">
+        <div>
+          <h4>Продукты Tumar.kz</h4>
+          <a href="#">Tumar Gold</a>
+          <a href="#">Рассрочка</a>
+          <a href="#">Депозит</a>
+        </div>
+        <div>
+          <h4>Сервисы Tumar.kz</h4>
+          <a href="#">Магазин</a>
+          <a href="#">Платежи</a>
+          <a href="#">Переводы</a>
+        </div>
+        <div>
+          <h4>Для Бизнеса</h4>
+          <a href="#">Принимать платежи</a>
+          <a href="#">Кредит для ИП</a>
+          <a href="#">Кабинет продавца</a>
+        </div>
+      </div>
+      <div class="container copy">© 2012-2026, TOO «Tumar Магазин»</div>
+    </footer>
+
+    <script src="/js/market.js"></script>
+  </body>
+</html>
