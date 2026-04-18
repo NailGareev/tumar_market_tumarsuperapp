@@ -25,6 +25,7 @@ DB_NAME=tumar_market
 - `html/seller.html` — страница кабинета продавца.
 - `css/market.css` — стили витрины.
 - `css/seller.css` — стили кабинета.
+- `main.py` — главный файл запуска в корне проекта.
 - `python/app.py` — Flask-приложение и инициализация MySQL на старте.
 - `python/market.py` — API витрины/карточки товара.
 - `python/seller.py` — API кабинета продавца.
@@ -47,11 +48,10 @@ go run .
 ### 2) Python API + веб
 
 ```bash
-cd python
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-python app.py
+pip install -r python/requirements.txt
+python main.py
 ```
 
 Сайт: `http://localhost:8000/market`
