@@ -1,13 +1,59 @@
-body { margin: 0; font-family: Inter, Arial, sans-serif; background: #f8fafc; color: #0f172a; }
-.topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #fff; border-bottom: 1px solid #e2e8f0; }
-.brand { font-size: 22px; font-weight: 800; }
-.brand span { color: #e91e63; }
-.tab { text-decoration: none; color: #334155; border: 1px solid #cbd5e1; border-radius: 999px; padding: 8px 12px; margin-left: 8px; }
-.tab.active { background: #e91e63; color: #fff; border-color: #e91e63; }
-main { max-width: 1100px; margin: 20px auto; padding: 0 16px 30px; }
-.card { background: #fff; border-radius: 14px; box-shadow: 0 2px 6px rgba(2,6,23,.06); padding: 14px; margin-bottom: 12px; }
-.row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-input, select, button { border: 1px solid #cbd5e1; border-radius: 10px; padding: 10px 12px; font-size: 14px; }
-button { border-color: #e91e63; background: #e91e63; color: #fff; cursor: pointer; }
-.muted { color: #64748b; }
-.offer { border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, Arial, sans-serif; background: #f3f4f6; color: #111827; }
+
+.seller-topbar { height: 72px; background: #2f3136; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 28px; }
+.seller-topbar nav { display: flex; gap: 24px; }
+.seller-topbar nav a { color: #fff; text-decoration: none; opacity: .95; }
+.seller-logo { font-weight: 700; font-size: 24px; }
+
+.seller-layout { display: grid; grid-template-columns: 320px 1fr; min-height: calc(100vh - 72px); }
+.sidebar { background: #fff; border-right: 1px solid #e5e7eb; padding: 20px 16px; }
+.sidebar-group-title { font-size: 12px; color: #6b7280; margin: 12px 8px; font-weight: 700; }
+.side-link { width: 100%; text-align: left; border: 0; background: transparent; border-radius: 10px; padding: 12px 10px; cursor: pointer; font-size: 19px; }
+.side-link.active { background: #eef2ff; color: #1d4ed8; font-weight: 700; }
+
+.register-box { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; margin-top: 8px; }
+.register-box h4 { margin: 0 0 8px; }
+.register-box input { width: 100%; border: 1px solid #d1d5db; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+.register-box button { width: 100%; border: 0; background: #0284c7; color: #fff; padding: 10px; border-radius: 10px; cursor: pointer; }
+.muted { color: #6b7280; font-size: 13px; }
+
+.content { padding: 24px 34px; }
+.page { display: none; }
+.page.active { display: block; }
+
+.title-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+h1 { margin: 0; font-size: 42px; }
+.primary { border: 0; background: #0ea5e9; color: white; padding: 10px 16px; border-radius: 9px; cursor: pointer; }
+.ghost { border: 1px solid #60a5fa; color: #2563eb; background: white; padding: 10px 14px; border-radius: 9px; cursor: pointer; margin-top: 8px; }
+
+.filters, .offer-form { display: grid; grid-template-columns: 1.2fr 1fr; gap: 10px; margin-bottom: 10px; }
+.offer-form { grid-template-columns: repeat(6, minmax(130px, 1fr)); }
+input, select { border: 1px solid #d1d5db; border-radius: 9px; padding: 10px 12px; font-size: 14px; }
+
+.table-wrap { margin-top: 14px; background: white; border-radius: 12px; border: 1px solid #e5e7eb; overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 14px 16px; border-bottom: 1px solid #e5e7eb; }
+th { color: #374151; font-size: 14px; background: #f9fafb; }
+
+.step { margin: 8px 0 14px; font-size: 28px; font-weight: 700; }
+.wizard-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 18px; margin-bottom: 12px; max-width: 900px; }
+.wizard-card h3 { margin: 0 0 8px; font-size: 36px; }
+.wizard-card p { margin: 0; color: #4b5563; font-size: 23px; }
+.wizard-card input { width: 100%; margin-top: 10px; }
+
+.quality-alert { background: #fef3c7; border-radius: 14px; padding: 18px; margin-top: 10px; max-width: 980px; }
+.quality-alert b { display: block; font-size: 34px; margin-bottom: 6px; }
+.quality-alert p { margin: 0; font-size: 22px; }
+.metrics-grid { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(260px, 1fr)); gap: 12px; }
+.metric-card { background: #fff; border-radius: 12px; border: 1px solid #e5e7eb; padding: 16px; }
+.metric-card h3 { margin: 0 0 8px; font-size: 28px; }
+.metric { font-size: 42px; font-weight: 700; color: #111827; }
+.metric-card p { margin: 0; color: #6b7280; font-size: 20px; }
+
+@media (max-width: 1200px) {
+  .seller-layout { grid-template-columns: 1fr; }
+  .sidebar { border-right: 0; border-bottom: 1px solid #e5e7eb; }
+  .filters { grid-template-columns: 1fr; }
+  .offer-form { grid-template-columns: 1fr 1fr; }
+}

@@ -1,6 +1,7 @@
 const sellerSelect = document.getElementById("seller-select");
 const productSelect = document.getElementById("product-select");
 const sellerOffers = document.getElementById("seller-offers");
+const searchOffer = document.getElementById("search-offer");
 
 const sellerName = document.getElementById("seller-name");
 const sellerCity = document.getElementById("seller-city");
@@ -11,8 +12,41 @@ const offerStock = document.getElementById("offer-stock");
 const offerDelivery = document.getElementById("offer-delivery");
 const offerWarranty = document.getElementById("offer-warranty");
 
+let currentOffers = [];
+
 function formatKzt(value) {
   return new Intl.NumberFormat("ru-RU").format(value) + " ₸";
+}
+
+function switchPage(name) {
+  document.querySelectorAll(".page").forEach((page) => page.classList.remove("active"));
+  document.querySelectorAll(".side-link").forEach((button) => button.classList.remove("active"));
+
+  document.getElementById(`page-${name}`).classList.add("active");
+  const activeButton = document.querySelector(`.side-link[data-page='${name}']`);
+  if (activeButton) activeButton.classList.add("active");
+}
+
+document.querySelectorAll(".side-link").forEach((button) => {
+  button.addEventListener("click", () => switchPage(button.dataset.page));
+});
+document.querySelector("[data-open-add]").addEventListener("click", () => switchPage("add"));
+document.querySelector("[data-open-products]").addEventListener("click", () => switchPage("products"));
+
+function renderOffers() {
+  const query = searchOffer.value.trim().toLowerCase();
+  const filtered = currentOffers.filter((offer) => offer.product_title.toLowerCase().includes(query));
+
+  sellerOffers.innerHTML = filtered.length
+    ? filtered.map((offer) => `
+      <tr>
+        <td>${offer.product_title}</td>
+        <td>${formatKzt(offer.price)}</td>
+        <td>RP1</td>
+        <td>${offer.stock}</td>
+      </tr>
+    `).join("")
+    : `<tr><td colspan="4" class="muted">Нет подходящих товаров.</td></tr>`;
 }
 
 async function loadLists() {
@@ -32,21 +66,17 @@ async function loadSellerOffers(sellerId) {
   const payload = await response.json();
 
   if (!response.ok) {
-    sellerOffers.innerHTML = `<p class="muted">Ошибка: ${payload.error}</p>`;
+    currentOffers = [];
+    sellerOffers.innerHTML = `<tr><td colspan="4" class="muted">Ошибка: ${payload.error}</td></tr>`;
     return;
   }
 
-  sellerOffers.innerHTML = payload.offers.length
-    ? payload.offers.map((offer) => `
-      <div class="offer">
-        <strong>${offer.product_title}</strong><br>
-        Цена: ${formatKzt(offer.price)}, остаток: ${offer.stock}, доставка: ${offer.delivery_days} дн., гарантия: ${offer.warranty_months} мес.
-      </div>
-    `).join("")
-    : `<p class="muted">Пока нет офферов.</p>`;
+  currentOffers = payload.offers;
+  renderOffers();
 }
 
 sellerSelect.addEventListener("change", () => loadSellerOffers(sellerSelect.value));
+searchOffer.addEventListener("input", renderOffers);
 
 document.getElementById("register-seller").addEventListener("click", async () => {
   const response = await fetch("/api/seller/register", {
